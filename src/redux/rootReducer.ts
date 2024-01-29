@@ -1,14 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 import authReducer from "./features/auth/authSlice";
-import catalogReducer from "./features/catalog/catalogSlice";
-import homeReducer from "./features/home/homeSlice";
-import transactionReducer from "./features/transaction/transactionSlice";
+import commonReducer from "./features/common/commonSlice";
 const rootReducer = combineReducers({
   auth: authReducer,
-  home: homeReducer,
-  catalog: catalogReducer,
-  transaction: transactionReducer,
+  common: commonReducer,
 });
 
 export default rootReducer;

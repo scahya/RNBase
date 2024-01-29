@@ -5,7 +5,7 @@ import Config from "react-native-config";
 export const apiSlice = createApi({
   reducerPath: "api", // optional
   baseQuery: fetchBaseQuery({
-    baseUrl: Config.BASE_URL,
+    baseUrl: Config.BASE_API,
     credentials: "include",
     prepareHeaders: async (headers, { getState }) => {
       const rootState = getState() as RootState;
