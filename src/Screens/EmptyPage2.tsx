@@ -10,36 +10,36 @@ const EmptyPage2 = () => {
   const navigation = useNavigation<NavigationProps>();
   const dispatch = useAppDispatch();
   return (
-    <SafeScreen>
-      <View style={{ flex: 1 }}>
-        <Text>EmptyPage2</Text>
-        <View
-          style={{
-            backgroundColor: "red",
-            opacity: 0.9,
-            borderColor: "pink",
-            borderWidth: 1,
-            borderRadius: 10,
-            marginTop: 20,
-            width: "80%",
-            height: "10%",
-            justifyContent: "center",
-            alignSelf: "center",
+    // <SafeScreen>
+    <View style={{ flex: 1 }}>
+      <Text>EmptyPage2</Text>
+      <View
+        style={{
+          backgroundColor: "red",
+          opacity: 0.9,
+          borderColor: "pink",
+          borderWidth: 1,
+          borderRadius: 10,
+          marginTop: 20,
+          width: "80%",
+          height: "10%",
+          justifyContent: "center",
+          alignSelf: "center",
+        }}
+      >
+        <TouchableOpacity
+          style={{ padding: 5 }}
+          onPress={() => {
+            dispatch(auth_LOGOUT());
           }}
         >
-          <TouchableOpacity
-            style={{ padding: 5 }}
-            onPress={() => {
-              dispatch(auth_LOGOUT());
-            }}
-          >
-            <Text style={{ color: "white", fontSize: 18 }}>
-              {"Unauthenticate MEE!!"}
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={{ color: "white", fontSize: 18 }}>
+            {"Unauthenticate MEE!!"}
+          </Text>
+        </TouchableOpacity>
       </View>
-    </SafeScreen>
+    </View>
+    // </SafeScreen>
   );
 };
 

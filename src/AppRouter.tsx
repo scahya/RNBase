@@ -57,6 +57,9 @@ const AppRouter = () => {
         {unprotectedRoutes}
       </Stack.Navigator>
     </NavigationContainer>
+    // <View
+    //   style={{ flex: 1, backgroundColor: "green", height: 100, width: 100 }}
+    // ></View>
   );
 };
 

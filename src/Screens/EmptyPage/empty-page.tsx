@@ -73,78 +73,76 @@ const EmptyPage = () => {
     <>
       <Loading loading={false} />
 
-      <SafeScreen>
-        <View>
-          <Text>EmptyPage11 </Text>
-          <Text> data received {dataTodos?.length}</Text>
-          <Text> post received {dataPosts?.length}</Text>
-          <TouchableOpacity
-            style={{ padding: 5, backgroundColor: "pink" }}
-            onPress={() => {
-              postPost({ name: "wawa" });
+      {/* <SafeScreen> */}
+      <View style={{ height: "100%", width: "100%", backgroundColor: "pink" }}>
+        <Text>EmptyPage11 </Text>
+        <Text> data received {dataTodos?.length}</Text>
+        <Text> post received {dataPosts?.length}</Text>
+        <TouchableOpacity
+          style={{ padding: 5, backgroundColor: "pink" }}
+          onPress={() => {
+            postPost({ name: "wawa" });
+          }}
+        >
+          <Text> posts button </Text>
+        </TouchableOpacity>
+        <Text> Infinite scroll </Text>
+        <View style={{ width: "100%", height: 200, backgroundColor: "purple" }}>
+          <FlatList
+            data={dataPosts}
+            scrollEnabled
+            nestedScrollEnabled
+            renderItem={({ index, item }) => {
+              return (
+                <View
+                  style={{
+                    marginVertical: 3,
+                    paddingVertical: 2,
+                    paddingHorizontal: 5,
+                    backgroundColor: index % 2 ? "gray" : "white",
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text>{index + 1}. </Text>
+                  <Text>{item.title}</Text>
+                </View>
+              );
             }}
-          >
-            <Text> posts button </Text>
-          </TouchableOpacity>
-          <Text> Infinite scroll </Text>
-          <View
-            style={{ width: "100%", height: 200, backgroundColor: "purple" }}
-          >
-            <FlatList
-              data={dataPosts}
-              scrollEnabled
-              nestedScrollEnabled
-              renderItem={({ index, item }) => {
-                return (
-                  <View
-                    style={{
-                      marginVertical: 3,
-                      paddingVertical: 2,
-                      paddingHorizontal: 5,
-                      backgroundColor: index % 2 ? "gray" : "white",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <Text>{index + 1}. </Text>
-                    <Text>{item.title}</Text>
-                  </View>
-                );
-              }}
-              onEndReached={() => onEndListReached()}
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: "red",
-              opacity: 0.9,
-              borderColor: "pink",
-              borderWidth: 1,
-              borderRadius: 10,
-              marginTop: 20,
-              width: "80%",
-              height: "10%",
-              justifyContent: "center",
-              alignSelf: "center",
-            }}
-          >
-            <TouchableOpacity
-              style={{ padding: 5 }}
-              onPress={() => {
-                dispatch(
-                  auth_SET_TOKEN({
-                    token: "wawadsadas",
-                    refreshToken: "",
-                  })
-                );
-              }}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>
-                {"Authenticate me"}
-              </Text>
-            </TouchableOpacity>
-          </View>
+            onEndReached={() => onEndListReached()}
+          />
         </View>
-      </SafeScreen>
+        <View
+          style={{
+            backgroundColor: "red",
+            opacity: 0.9,
+            borderColor: "pink",
+            borderWidth: 1,
+            borderRadius: 10,
+            marginTop: 20,
+            width: "80%",
+            height: "10%",
+            justifyContent: "center",
+            alignSelf: "center",
+          }}
+        >
+          <TouchableOpacity
+            style={{ padding: 5 }}
+            onPress={() => {
+              dispatch(
+                auth_SET_TOKEN({
+                  token: "wawadsadas",
+                  refreshToken: "",
+                })
+              );
+            }}
+          >
+            <Text style={{ color: "white", fontSize: 18 }}>
+              {"Authenticate me"}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* </SafeScreen> */}
     </>
   );
 };

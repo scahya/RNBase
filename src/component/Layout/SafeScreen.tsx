@@ -66,7 +66,7 @@ function SafeScreen(props: Readonly<ScreenProps>) {
   const style = props.style || {};
   const backgroundStyle = props.backgroundColor
     ? { backgroundColor: props.backgroundColor }
-    : { backgroundColor: "white" };
+    : { backgroundColor: "black" };
   const insetStyle = { paddingBottom: 0 } as ViewStyle;
 
   return (
