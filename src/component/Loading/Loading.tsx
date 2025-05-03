@@ -5,7 +5,7 @@ import Modal from "react-native-modal";
 import {
   heightComparedByReferencePercentage as HP,
   widthComparedByReference as wp,
-} from "../../utils/responsive";
+} from "../../utils/Responsive";
 import { Text } from "@rneui/base";
 interface MenuProps {
   loading: boolean;
