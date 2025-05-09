@@ -5,6 +5,8 @@ import {
   Platform,
   TouchableOpacity,
   FlatList,
+  ActivityIndicator,
+  Image,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import {
@@ -18,8 +20,17 @@ import SafeScreen from "../../component/Layout/SafeScreen";
 import { auth_SET_TOKEN } from "../../redux/features/auth/authSlice";
 import { useAppDispatch } from "../../app/hooks";
 import Loading from "../../component/Loading/Loading";
+import TextInput from "../../component/TextInput/TextInput";
+import { scaleSize } from "../../assets/styles/mixins";
+import Button from "../../component/Button/Button";
+import { useAuthLoginMutation } from "../../redux/features/auth/authRtk";
+import FontAwesome6 from "react-native-vector-icons/FontAwesome6";
 
 const EmptyPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordShow, setPasswordShow] = useState(true);
+
   const [page, setPage] = useState(1);
   const dispatch = useAppDispatch();
   const {
@@ -41,6 +52,19 @@ const EmptyPage = () => {
     postPost,
     { isSuccess: postPostsSuccess, data: dataPostPosts, error: postPostsError },
   ] = usePostPostsMutation();
+  const [
+    authLogin,
+    { isLoading: isAuthLoading, isSuccess: isAuthSuccess, data },
+  ] = useAuthLoginMutation();
+
+  const onRequestLogin = async () => {
+    const data = {
+      username: username,
+      password: password,
+    };
+    authLogin(data);
+  };
+
   const reqPermision = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -74,7 +98,7 @@ const EmptyPage = () => {
       <Loading loading={false} />
 
       {/* <SafeScreen> */}
-      <View style={{ height: "100%", width: "100%", backgroundColor: "pink" }}>
+      <View style={{ height: "100%", width: "100%" }}>
         <Text>EmptyPage11 </Text>
         <Text> data received {dataTodos?.length}</Text>
         <Text> post received {dataPosts?.length}</Text>
@@ -87,7 +111,7 @@ const EmptyPage = () => {
           <Text> posts button </Text>
         </TouchableOpacity>
         <Text> Infinite scroll </Text>
-        <View style={{ width: "100%", height: 200, backgroundColor: "purple" }}>
+        <View style={{ width: "100%", height: 200, backgroundColor: "white" }}>
           <FlatList
             data={dataPosts}
             scrollEnabled
@@ -113,33 +137,88 @@ const EmptyPage = () => {
         </View>
         <View
           style={{
-            backgroundColor: "red",
-            opacity: 0.9,
-            borderColor: "pink",
-            borderWidth: 1,
-            borderRadius: 10,
-            marginTop: 20,
-            width: "80%",
-            height: "10%",
-            justifyContent: "center",
-            alignSelf: "center",
+            paddingLeft: scaleSize(20),
+            paddingRight: scaleSize(20),
+            marginTop: scaleSize(10),
+            // backgroundColor: 'red',
           }}
         >
-          <TouchableOpacity
-            style={{ padding: 5 }}
-            onPress={() => {
-              dispatch(
-                auth_SET_TOKEN({
-                  token: "wawadsadas",
-                  refreshToken: "",
-                })
-              );
+          <TextInput
+            label={"Email"}
+            placeholder={"Email"}
+            value={username}
+            onChangeText={(value) => setUsername(value)}
+          />
+          <TextInput
+            label={"Password"}
+            placeholder={"Password"}
+            value={password}
+            onChangeText={(value) => setPassword(value)}
+            secureTextEntry={passwordShow}
+            rightIcon={
+              <TouchableOpacity onPress={() => setPasswordShow(!passwordShow)}>
+                {passwordShow ? (
+                  <FontAwesome6
+                    name="eye-slash"
+                    style={{ height: scaleSize(30), width: scaleSize(30) }}
+                  />
+                ) : (
+                  <FontAwesome6
+                    name="eye"
+                    style={{ height: scaleSize(30), width: scaleSize(30) }}
+                  />
+                )}
+              </TouchableOpacity>
+            }
+          />
+          {isLoading ? (
+            <ActivityIndicator size={"large"} />
+          ) : (
+            <Button
+              title={"MASUK"}
+              onPress={
+                // onRequestLogin
+                () =>
+                  dispatch(
+                    auth_SET_TOKEN({
+                      token: "wawadsadas",
+                      refreshToken: "",
+                    })
+                  )
+              }
+            />
+          )}
+          <View
+            style={{
+              backgroundColor: "gray",
+              opacity: 0.9,
+              borderColor: "white",
+              borderWidth: 1,
+              borderRadius: 10,
+              marginTop: 20,
+              width: "80%",
+              height: "10%",
+              justifyContent: "center",
+              alignSelf: "center",
             }}
           >
-            <Text style={{ color: "white", fontSize: 18 }}>
-              {"Authenticate me"}
-            </Text>
-          </TouchableOpacity>
+            {/* placeholder for token */}
+            <TouchableOpacity
+              style={{ padding: 5 }}
+              onPress={() => {
+                dispatch(
+                  auth_SET_TOKEN({
+                    token: "wawadsadas",
+                    refreshToken: "",
+                  })
+                );
+              }}
+            >
+              <Text style={{ color: "white", fontSize: 18 }}>
+                {"Authenticate me"}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
       {/* </SafeScreen> */}
